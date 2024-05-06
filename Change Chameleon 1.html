@@ -1,0 +1,503 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            background-color: #d8e0eb;
+        }
+
+        .main-header {
+            display: flex;
+            padding: 10px;
+            background-color: #312d2a;
+            color: white;
+            align-items: center;
+        }
+
+        .main-header button {
+            color: white;
+            background-color: #312d2a;
+            border: 1px solid white;
+            border-radius: 2px;
+            padding: 6px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .content {
+            height: calc(100vh - 50px);
+        }
+
+        .top-container {
+            display: flex;
+            width: 60%;
+            margin: auto;
+            padding-top: 40px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .bottom-container {
+
+            display: flex;
+            width: 60%;
+            margin: auto;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-top: 5%;
+        }
+
+        .top-field {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bottom-field {
+            font-size: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 5%;
+        }
+
+        .top-field-cell-left {
+            flex: 1;
+            text-align: end;
+            margin-right: 10px;
+            font-weight: bold;
+            align-self: center;
+        }
+
+        .top-field-cell-right {
+            flex: 2;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .action-bar {
+            display: flex;
+            column-gap: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+        }
+
+        .middle-container {
+            margin-top: 5%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        th {
+            border: solid #DDDDDD 1.0pt;
+            border-left: none;
+            padding: 5px;
+            text-align: start;
+            font-size: 12px;
+        }
+
+        td {
+            border-top: none;
+            border-left: none;
+            border-bottom: solid #DDDDDD 1.0pt;
+            border-right: solid #DDDDDD 1.0pt;
+        }
+        .item-input {
+            width: 100%;
+            background-color: #d8e0eb;
+        }
+
+        .active-row .item-input:focus:not(:disabled) {
+            background-color: #eddd9f;
+        }
+
+        .active-row .first {
+            background-color: blue;
+        }
+
+        .active-row .item-input:not(:disabled) {
+            background-color: white;
+        }
+
+        .action-bar i {
+            line-height: 30px;
+        }
+
+        .dropdown {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .dropdown-options {
+            display: none;
+            position: absolute;
+            overflow: auto;
+            box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        }
+
+        .dropdown-options button {
+            width: 250px;
+            background-color: #fff;
+            line-height: 30px;
+            border: 0;
+        }
+
+        .dropdown-options button:hover {
+            background-color: #cad2dd;
+        }
+
+        .actionbar-button {
+            background-color: #d8e0eb;
+            border: 1px solid #000;
+            line-height: 30px;
+            border: 0
+        }
+
+        .header-divider {
+            width: 4px;
+            border-right: 1px solid white;
+            display: inline;
+            margin-right: 4px;
+
+        }
+
+        .top-container input,
+        .top-container select,
+        .bottom-field input {
+            height: 30px;
+            background-color: #cad2dd;
+            border: 0;
+        }
+
+        input#bySerialNumbers {
+            height: auto;
+        }
+
+        .menu-divider {
+            border-bottom: 1px solid #000;
+        }
+
+        .view-dropdown-options button {
+            width: 150px;
+        }
+
+        .checkbox-label {
+            font-size: 12px;
+            vertical-align: text-top;
+        }
+
+        .bottom-field-cell-left {
+            flex: 2;
+            text-align: end;
+            margin-right: 10px;
+            font-weight: bold;
+            align-self: center;
+        }
+    </style>
+</head>
+
+<body lang="EN-US">
+    <header class="main-header">
+        <h4 style="flex: auto;margin: 0;">Create Miscellaneous Transaction <i class="fa-regular fa-circle-question"></i>
+        </h4>
+        <div style="flex: none">
+            <button>Submit and Create Another</button>
+            <button>Submit</button>
+            <div class="header-divider"></div>
+            <button>Cancel</button>
+        </div>
+    </header>
+    <div class="content">
+        <div class="top-container">
+            <div class="top-field">
+                <div class="flex">
+                    <div class="top-field-cell-left">
+                        <label for="dateSelection">Date</label>
+                    </div>
+                    <div class="top-field-cell-right">
+                        <input type="datetime-local" name="dateSelection" id="dateSelection">
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="top-field-cell-left">
+                        <label for="transactionType">Type</label>
+                    </div>
+                    <div class="top-field-cell-right">
+                        <select name="transactionType" id="transactionType">
+                            <option value="1">Account Alias Issue</option>
+                            <option value="2">Account Alias Receipt</option>
+                            <option value="3">Account Issue</option>
+                            <option value="4">Account Receipt</option>
+                            <option value="5">FAB Account Alias Issue</option>
+                            <option value="6">FAB Account Alias Receipt</option>
+                            <option value="7">Miscellaneous Receipt</option>
+                            <option value="8">Project Account Alias Receipt</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="top-field-cell-left">
+                        <label for="useCurrent">Use Current Item Cost</label>
+                    </div>
+                    <div class="top-field-cell-right">
+                        <select name="useCurrent" id="useCurrent">
+                            <option value="1">Yes</option>
+                            <option value="2">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="top-field-cell-left">
+                        <!-- <label for="useCurrent">Use Current Item Cost</label> -->
+                    </div>
+                    <div class="top-field-cell-right">
+                        <input type="checkbox" name="bySerialNumbers" id="bySerialNumbers" />
+                        <label for="bySerialNumbers" class="checkbox-label">Enter Transactions by serial numbers</label>
+                    </div>
+                </div>
+            </div>
+            <div class="top-field">
+                <div class="flex">
+                    <div class="top-field-cell-left">
+                        <label for="source">Source</label>
+                    </div>
+                    <div class="top-field-cell-right">
+                        <input type="text" name="source" id="source" />
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="top-field-cell-left">
+                        <label for="account">Account</label>
+                    </div>
+                    <div class="top-field-cell-right">
+                        <input type="text" name="account" id="account" />
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="middle-container">
+            <div class="action-bar">
+                <div class="dropdown">
+                    <button class="actionbar-button">Actions</button>
+                    <i class="fa-solid fa-caret-down"></i>
+                    <div class="dropdown-options">
+                        <button>Add</button>
+                        <button>Duplicate</button>
+                        <button>Delete</button>
+                        <div class="menu-divider"></div>
+                        <button>Generate Lot</button>
+                        <button>Generate Serial Number Range</button>
+                        <button>Record Lots and Serial Numbers</button>
+                        <button>Edit Details</button>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="actionbar-button">View</button>
+                    <i class="fa-solid fa-caret-down"></i>
+                    <div class="dropdown-options view-dropdown-options">
+                        <button>About This Record</button>
+                        <div class="menu-divider"></div>
+                        <button>Columns <i class="fa-solid fa-caret-right" style="float: right;"></i></button>
+                        <div class="menu-divider"></div>
+                        <button>Unfreeze</button>
+                        <button>Detach</button>
+                        <div class="menu-divider"></div>
+                        <button>Sort <i class="fa-solid fa-caret-right" style="float: right;"></i></button>
+                        <button>Reorder Columns...</button>
+                    </div>
+                </div>
+                <i class="fa-solid fa-plus"></i>
+                <i class="fa-solid fa-file-lines"></i>
+                <i class="fa-solid fa-xmark"></i>
+                <button disabled>Generate Lot</button>
+                <button disabled>Generate Serial Number Range</button>
+                <button disabled>Record Lots and Serial Numbers</button>
+                <button>Edit Details</button>
+            </div>
+            <table style="border: 2px solid;">
+                <tbody>
+                    <tr>
+                        <th class="tableHeader"></th>
+                        <th class="tableHeader" width="100px">Item</th>
+                        <th class="tableHeader" width="20px"></th>
+                        <th class="tableHeader" width="100px">Expires On</th>
+                        <th class="tableHeader" width="30px">UOM</th>
+                        <th class="tableHeader" width="100px">Quality</th>
+                        <th class="tableHeader" width="100px">Secondary UOM</th>
+                        <th class="tableHeader" width="100px">Secondary Qty</th>
+                        <th class="tableHeader" width="100px">Unit Cost</th>
+                        <th class="tableHeader" width="100px">Account</th>
+                        <th class="tableHeader" width="100px">Location</th>
+                        <th class="tableHeader" width="100px">Reason</th>
+                        <th class="tableHeader" width="100px">Reference</th>
+                        <th class="tableHeader">[]</th>
+                    </tr>
+                    <tr>
+                        <td class="first"></td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" disabled/>
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input"disabled />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input"disabled />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="first"></td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" disabled/>
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" disabled/>
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" disabled/>
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                        <td>
+                            <input type="text" name="item" id="item" class="item-input" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="bottom-container">
+            <div>
+                <p>Line 1 : Availability <i class="fa-regular fa-circle-question"></i></p>
+            </div>
+            <div class="bottom-field">
+                <div class="flex">
+                    <div class="top-field-cell-left">
+                        <label for="availableQuantity">Available Quantity</label>
+                    </div>
+                    <div class="top-field-cell-right">
+                        <input type="text" name="availableQuantity" id="availableQuantity" />
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="top-field-cell-left">
+                        <label for="onHandQuantity">On-Hand Quantity</label>
+                    </div>
+                    <div class="top-field-cell-right">
+                        <input type="text" name="onHandQuantity" id="onHandQuantity" />
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-field">
+                <div class="flex">
+                    <div class="bottom-field-cell-left">
+                        <label for="secAvailableQuantity">Secondary Available Quantity</label>
+                    </div>
+                    <div class="top-field-cell-right">
+                        <input type="text" name="secAvailableQuantity" id="secAvailableQuantity" />
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="bottom-field-cell-left">
+                        <label for="secOnHandQuantity">Secondary On-Hand Quantity</label>
+                    </div>
+                    <div class="top-field-cell-right">
+                        <input type="text" name="secOnHandQuantity" id="secOnHandQuantity" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+<script>
+    const itemInputs = document.querySelectorAll('.item-input');
+    itemInputs.forEach(itemInput => {
+        itemInput.addEventListener('focus', (e) => {
+            itemInputs.forEach(itemInput => {
+                itemInput.parentElement.parentElement.classList.remove('active-row');
+            });
+            e.target.parentElement.parentElement.classList.add('active-row');
+        });
+    });
+    const dropdownAll = document.querySelectorAll('.dropdown');
+    const dropdownOptions = document.querySelectorAll('.dropdown-options');
+    dropdownAll.forEach(dropdown => {
+        dropdown.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownOptions.forEach(opt => {
+                opt.style.display = 'none';
+            });
+            dropdown.querySelector(".dropdown-options").style.display = 'block';
+        });
+    });
+    const body = document.querySelector('body');
+    body.addEventListener('click', (e) => {
+        dropdownOptions.forEach(opt => {
+            if (opt.style.display === "block") opt.style.display = 'none';
+        });
+    });
+    const btns = document.querySelectorAll('button');
+</script>
+
+</html>
